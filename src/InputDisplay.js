@@ -12,12 +12,15 @@ class InputDisplay extends Component {
           </div>
           <div className="field">
             <div className="control">
-              <input onChange={ this.props.handleInput } 
-                     className={"textarea is-medium " + this.props.statusClass }
+              <textarea onChange={ this.props.handleInput } 
+                     className={"textarea " + this.props.statusClass }
                      type="textarea"
-                     autoFocus
+                     rows="5"
+                     autoFocus={true}
+                     disabled={this.props.disabled}
                      placeholder="Clock starts when you type"
-                     value={this.props.input}/>
+                     value={this.props.input}>
+              </textarea>
             </div>
           </div>
         </div>

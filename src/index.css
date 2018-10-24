@@ -7,14 +7,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-input[textarea]:placeholder {
+::-webkit-input-placeholder {
   color: white;
 }
 
 /* PageLayout */
 
 .app {
-  background: #123456;
+  background: #222;
   height: 100vh;
 }
 
@@ -43,7 +43,7 @@ button.button:hover {
   color: white;
 }
 
-/* sourceDisplay */ 
+/* inputDisplay */ 
 
 .inputDisplay > .box,
 .inputDisplay .textarea {
@@ -51,9 +51,35 @@ button.button:hover {
   color: white;
 }
 
+.inputDisplay[disabled="true"] {
+  background: rgb(28, 148, 102);
+  color: #222;
+}
+
+/* .timer */
 .result-display,
 .timer-display {
   color: white;
+  display: inline-block;
+}
+
+.timer-display.pulse {
+  animation: bulge 1s infinite;
+  animation-delay: 0.6s;
+}
+
+.result-display.boing {
+  color: rgb(28, 148, 102);
+  animation: 0.4s bulge;
+}
+
+@keyframes bulge {
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 

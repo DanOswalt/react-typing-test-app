@@ -8,12 +8,18 @@ class SourceDisplay extends Component {
         <div className="box">
           <div className="field">
             <div className="control">
-              <button onClick= { this.props.getQuote } className="button">Get Different Text</button>
+              <button onClick= { this.props.getQuote } 
+                      className="button">Get Different Text</button>
             </div>
           </div>
           <div className="field">
             <div className="control">
-              <input className="textarea is-primary is-medium" type="textarea" readOnly value={ this.props.quote }/>
+              <textarea className="textarea is-primary" 
+                     type="textarea"
+                     rows="5"
+                     readOnly
+                     value={ this.props.quote }>
+              </textarea>
             </div>
           </div>
         </div>  

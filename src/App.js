@@ -16,15 +16,14 @@ class App extends Component {
     finalTime: null,
     wpm: 0,
     isCorrectSoFar: true,
-    statusClass: ""
+    statusClass: "",
+    successClass: ""
   }
 
   updateStatusClass = () => {
     let statusClass = "is-white";
 
-    if (this.state.finished) {
-      statusClass = "is-success disabled"
-    } else if (this.state.textEntered && this.state.isCorrectSoFar) {
+    if (this.state.textEntered && this.state.isCorrectSoFar) {
       statusClass = "is-primary";
     } else if (this.state.textEntered && !this.state.isCorrectSoFar) {
       statusClass = "is-danger";
@@ -34,10 +33,9 @@ class App extends Component {
   }
 
   getQuote = () => {
-    axios.get(`http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=20`)
+    axios.get(`http://www.randomtext.me/api/gibberish/p-1/30-60`)
       .then(res => {
-        const rand = Math.floor(Math.random() * 20)
-        const content = res.data[rand].content;
+        const content = res.data.text_out;
         let htmlRemovedContent = content.replace("<p>", "");
         htmlRemovedContent = htmlRemovedContent.replace("</p>", "").trim();
         this.setState({ quote: htmlRemovedContent });
@@ -69,7 +67,8 @@ class App extends Component {
       textEntered: false,
       finished: false,
       finalTime: null,
-      wpm: 0
+      wpm: 0,
+      statusClass: ""
     });
     // return focus to input
   }
@@ -83,9 +82,15 @@ class App extends Component {
       finished = true;
     }
 
+    this.isCorrectSoFar();
     this.setState({ input, textEntered, finished });
     this.updateStatusClass()
-    
+  }
+
+  isCorrectSoFar = () => {
+    const isCorrectSoFar = this.state.quote.includes(this.state.input);
+    console.log(isCorrectSoFar)
+    this.setState({isCorrectSoFar})
   }
 
   render() {
@@ -96,7 +101,9 @@ class App extends Component {
                        getQuote={this.getQuote}/>
         <InputDisplay reset={this.reset} 
                       handleInput={this.handleInput}
-                      input={this.state.input}/>
+                      input={this.state.input}
+                      statusClass={this.state.statusClass}
+                      disabled={this.state.finished}/>
         <div className="container">
           <div className="columns">
             <div className="column is-6">

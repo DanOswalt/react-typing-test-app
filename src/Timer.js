@@ -4,7 +4,8 @@ class Timer extends Component {
   state = {
     msElapsed: 0,
     displayTime: "0.0",
-    timerId: null
+    timerId: null,
+    timerIsOn: false
   }
 
   componentDidUpdate (prevProps) {
@@ -22,12 +23,13 @@ class Timer extends Component {
   }
 
   startTimer = () => {
-    let msElapsed = this.state.msElapsed
+    let msElapsed = this.state.msElapsed;
     const timerId = setInterval(() => {
       msElapsed += 0.1;
       const displayTime = Number.parseFloat(msElapsed).toFixed(1)
-      this.setState({msElapsed, displayTime, timerId});
+      this.setState({msElapsed, displayTime, timerId, timerIsOn: true});
     }, 100);
+
   }  
 
   stopAndResetTimer = () => {
@@ -35,19 +37,22 @@ class Timer extends Component {
     const state = {
       msElapsed: 0,
       displayTime: "0.0",
-      timerId: null
+      timerId: null,
+      timerIsOn: false
     }
     this.setState({...state});
   }
 
   stopTimer = () => {
     clearInterval(this.state.timerId);
+    this.setState({timerIsOn: false})
   }
 
   render() {
+    const {timerIsOn} = this.state;
     return (
       <div className="timer has-text-centered">
-        <span className="timer-display is-size-1">
+        <span className={`timer-display is-size-1 ${timerIsOn ? 'pulse' : ''} `}>
           { this.state.displayTime } seconds
         </span>
       </div>
