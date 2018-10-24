@@ -12,8 +12,12 @@ class Timer extends Component {
       if (this.props.textEntered) {
         this.startTimer();
       } else {
-        this.stopTimer();
+        this.stopAndResetTimer();
       }
+    }
+    if (prevProps.finished !== this.props.finished) {
+      this.stopTimer();
+      this.props.getFinalTime(this.state.msElapsed);
     }
   }
 
@@ -26,14 +30,18 @@ class Timer extends Component {
     }, 100);
   }  
 
-  stopTimer = () => {
+  stopAndResetTimer = () => {
     clearInterval(this.state.timerId);
     const state = {
       msElapsed: 0,
       displayTime: "0.0",
       timerId: null
     }
-    this.setState({...state})
+    this.setState({...state});
+  }
+
+  stopTimer = () => {
+    clearInterval(this.state.timerId);
   }
 
   render() {

@@ -38,7 +38,7 @@ button.button:hover {
 }
 
 .sourceDisplay > .box,
-.sourceDisplay .textarea{
+.sourceDisplay .textarea {
   background: #222;
   color: white;
 }
